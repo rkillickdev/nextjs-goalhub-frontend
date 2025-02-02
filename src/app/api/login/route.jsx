@@ -1,6 +1,6 @@
 "use server"
 
-import { setRefreshToken, setToken } from "@/app/lib/auth"
+import { setRefreshToken, setToken } from "@/lib/auth"
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
 
