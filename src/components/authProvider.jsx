@@ -43,7 +43,7 @@ export function AuthProvider({children}) {
     if (LOGIN_REQUIRED_URL === pathname) {
       loginWithNextUrl = `${LOGIN_REQUIRED_URL}`
     }
-    router.replace(LOGIN_REQUIRED_URL)
+    router.replace(loginWithNextUrl)
   }
 
   return <AuthContext.Provider value={{isAuthenticated, login, logout, loginRequiredRedirect}}>
