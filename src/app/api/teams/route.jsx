@@ -51,9 +51,7 @@ export async function POST(request) {
   }
   const requestOptions = {
       method: "POST",
-      headers: {
-          "Content-Type": "application/json"
-      },
+      headers: headers,
       body: jsonData
   }
   const response = await fetch(DJANGO_API_TEAMS_URL, requestOptions)

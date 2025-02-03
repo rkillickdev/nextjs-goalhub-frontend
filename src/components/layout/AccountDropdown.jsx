@@ -35,7 +35,7 @@ export default function AccountDropdown({className}) {
     </Button>
     </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-        <DropdownMenuLabel>{auth.username? auth.username : "Account"}</DropdownMenuLabel>
+        <DropdownMenuLabel>{auth.email? auth.email : "Account"}</DropdownMenuLabel>
         <DropdownMenuItem onClick={e=> router.push('/logout')}>Logout</DropdownMenuItem>
         </DropdownMenuContent>
     </DropdownMenu>

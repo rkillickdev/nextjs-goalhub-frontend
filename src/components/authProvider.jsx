@@ -9,9 +9,11 @@ const LOGIN_REDIRECT_URL = "/"
 const LOGOUT_REDIRECT_URL = "/login"
 const LOGIN_REQUIRED_URL = "/login"
 const LOCAL_STORAGE_KEY = "is-logged-in"
+const LOCAL_USER_EMAIL_KEY = "user-email"
 
 export function AuthProvider({children}) {
   const [isAuthenticated, setIsAuthenticated] =useState(false)
+  const [email, setEmail] = useState("")
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -22,11 +24,21 @@ export function AuthProvider({children}) {
       const storedAuthStatusInt = parseInt(storedAuthStatus)
       setIsAuthenticated(storedAuthStatusInt === 1)
     }
+    const storedEmail = localStorage.getItem(LOCAL_USER_EMAIL_KEY)
+    if (storedEmail) {
+      setEmail(storedEmail)
+    }
   }, [])
 
-  const login  = () => {
+  const login  = (email) => {
     setIsAuthenticated(true)
     localStorage.setItem(LOCAL_STORAGE_KEY, "1")
+    if (email) {
+      localStorage.setItem(LOCAL_USER_EMAIL_KEY, `${email}`)
+      setEmail(email)
+    } else {
+      localStorage.removeItem(LOCAL_USER_EMAIL_KEY)
+    }
     const nextUrl = searchParams.get("next")
     const invalidNextUrl = ['/login', '/logout']
     const nextUrlValid = nextUrl && nextUrl.startsWith("/") && !invalidNextUrl.includes(nextUrl)
@@ -56,7 +68,7 @@ export function AuthProvider({children}) {
     router.replace(loginWithNextUrl)
   }
 
-  return <AuthContext.Provider value={{isAuthenticated, login, logout, loginRequiredRedirect}}>
+  return <AuthContext.Provider value={{isAuthenticated, login, logout, loginRequiredRedirect, email}}>
     {children}
   </AuthContext.Provider>
 }

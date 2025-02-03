@@ -20,14 +20,14 @@ export async function POST(request) {
   const responseData = await response.json()
   if (response.ok) {
       console.log("logged in")
-      const {username, access, refresh} = responseData
-      // console.log(access, refresh)
+      const {email, access, refresh} = responseData
+      console.log(email)
       setToken(access)
       setRefreshToken(refresh)
       const cookieStore = await cookies()
       const allTokens =cookieStore.getAll()
-      console.log(allTokens)
-      return NextResponse.json({"loggedIn": true, "username": username}, {status: 200})
+      // console.log(allTokens)
+      return NextResponse.json({"loggedIn": true, "email": email}, {status: 200})
   }
   return NextResponse.json({"loggedIn": false, ...responseData}, {status: 400})
 }
