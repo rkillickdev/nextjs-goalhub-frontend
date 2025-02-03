@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import useSWR from "swr";
 import { useAuth } from "@/components/authProvider";
+import { ThemeToggleButton } from "@/components/themeButtonToggle";
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -18,6 +19,9 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <div>
           {auth.isAuthenticated ? "Hello user" : "Hello guest"}
+        </div>
+        <div>
+          <ThemeToggleButton/>
         </div>
         <div>
           {JSON.stringify(data)}
