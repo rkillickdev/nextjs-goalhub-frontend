@@ -1,5 +1,4 @@
 "use client"
-
 import { useAuth } from "@/components/authProvider"
 import { useRouter } from "next/navigation"
 
@@ -22,7 +21,6 @@ export default function Page() {
         if (response.ok) {
             console.log("logged out")
             auth.logout()
-            router.replace("/login")
         }
   }
   return(
