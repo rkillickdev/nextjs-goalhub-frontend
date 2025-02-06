@@ -19,6 +19,20 @@ export default class APIProxy {
     return headers
   }
 
+  static async handleFetch(endpoint, requestOptions) {
+    let data = {}
+    let status = 500
+    try {
+      const response = await fetch(endpoint, requestOptions)
+      data = await response.json()
+      status = response.status
+    } catch (error) {
+      data = {message: "Cannot reach API server", error: error}
+      status = 500
+    }
+    return {data, status}
+  }
+
   static async post(endpoint, object, requireAuth) {
     const jsonData = JSON.stringify(object)
     const headers = await APIProxy.getHeaders(requireAuth)
@@ -27,7 +41,7 @@ export default class APIProxy {
         headers: headers,
         body: jsonData
     }
-    return await fetch(endpoint, requestOptions)
+    return await APIProxy.handleFetch(endpoint, requestOptions)
   }
 
   static async get(endpoint, requireAuth) {
@@ -36,6 +50,6 @@ export default class APIProxy {
         method: "GET",
         headers: headers
     }
-    return await fetch(endpoint, requestOptions)
+    return await APIProxy.handleFetch(endpoint, requestOptions)
   }
 }
