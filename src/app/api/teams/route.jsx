@@ -3,15 +3,13 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import APIProxy from "../proxy";
 
-const TOKEN_NAME = 'auth-token'
-
 const DJANGO_API_TEAMS_URL="http://127.0.0.1:8001/api/teams/"
 
 export async function GET(request){
   const response = await APIProxy.get(DJANGO_API_TEAMS_URL, true)
   const result = await response.json()
   let status = response.status
-  return NextResponse.json({...result}, {status: status})
+  return NextResponse.json(result, {status: status})
 }
 
 export async function POST(request) {

@@ -1,4 +1,7 @@
+import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
+
+const TOKEN_NAME = 'auth-token'
 
 export default class APIProxy {
 
