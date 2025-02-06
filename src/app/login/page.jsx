@@ -34,7 +34,6 @@ export default function Page({
         } catch (error) {
 
         }
-        // const data = await response.json()
         console.log(response)
         if (response.ok) {
             console.log("logged in")
