@@ -2,8 +2,9 @@ import { getToken } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import APIProxy from "../proxy";
+import { DJANGO_API_ENDPOINT } from "@/config/defaults";
 
-const DJANGO_API_TEAMS_URL="http://127.0.0.1:8001/api/teams/"
+const DJANGO_API_TEAMS_URL=`${DJANGO_API_ENDPOINT}/teams/`
 
 export async function GET(request){
   const {data, status} = await APIProxy.get(DJANGO_API_TEAMS_URL, true)
